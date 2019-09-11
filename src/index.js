@@ -15,15 +15,30 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
-      xIsNext: true,
+      xGoesNow: true,
+      winner: null,
     }
   }
 
   handleClick = (i) => {
     const squares = this.state.squares.slice();
-    if (!squares[i]) {
-      squares[i] = this.state.xIsNext ? 'X' : 'O';
-      this.setState({ squares: squares, xIsNext: !this.state.xIsNext });
+    if (!squares[i] && !this.state.winner) {
+      squares[i] = this.state.xGoesNow ? 'X' : 'O';
+      console.log('111', `squares[${i}]=${squares[i]}`);
+      console.log('2', squares);
+      console.log('333', this.state);
+      // this.setState({ ...this.state, squares: squares, superSquares: squares });
+      this.setState({dupa: 'DUPA'});
+
+      console.log('bbb', this.state);
+      const winner = calculateWinner(this.state.squares);
+      if (winner) {
+        this.setState({ ...this.state, winner })
+        console.log('www', this.state);
+      } else {
+        this.setState({ ...this.state, xGoesNow: !this.state.xGoesNow });
+        console.log('nnn', this.state);
+      }
     }
   }
 
@@ -37,7 +52,9 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+    const status = this.state.winner
+      ? `${this.state.winner} wins!`
+      : `Next player: ${this.state.xGoesNow ? 'X' : 'O'}`;
 
     return (
       <div>
@@ -76,6 +93,26 @@ class Game extends React.Component {
       </div>
     );
   }
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
 }
 
 // ========================================
