@@ -2,14 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import pig from './images/Fat_pig.webp';
-import bird from './images/red.webp'
+import bird from './images/red.webp';
+import blank from './images/blank.png';
+
+const WHITE = 'w';
+const BLACK = 'b';
 
 function Square(props) {
+  const img = props.value === WHITE
+    ? bird
+    : (props.value === BLACK ? pig : blank);
+
   return (
-      // style=`background: url('')
-    <button className="square" onClick={props.onClick}> 
-      {props.value}
-    </button>
+    <img src={img} alt='' className="square" onClick={props.onClick} />
   );
 }
 
@@ -25,7 +30,7 @@ class Board extends React.Component {
   handleClick = (i) => {
     const squares = this.state.squares.slice();
     if (!squares[i] && !calculateWinner(this.state.squares)) {
-      squares[i] = this.state.xIsNext ? 'X' : 'O';
+      squares[i] = this.state.xIsNext ? WHITE : BLACK;
       this.setState({ squares: squares, xIsNext: !this.state.xIsNext });
     }
   }
@@ -43,7 +48,7 @@ class Board extends React.Component {
     const winner = calculateWinner(this.state.squares);
     const status = winner
       ? `Winner: ${winner}`
-      : `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+      : `Next player: ${this.state.xIsNext ? WHITE : BLACK}`;
 
     return (
       <div>
@@ -63,7 +68,6 @@ class Board extends React.Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
-        <img className="square" src={this.state.xIsNext ? pig : bird } alt=''/>
       </div>
     );
   }
