@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+
 import pig from './images/Fat_pig.webp';
 import bird from './images/red.webp';
 import blank from './images/blank.png';
+
+import yellow from './images/yellow.png';
+import pink from './images/pink.png';
+import orange from './images/orange.png';
+import green from './images/green.png';
+import blue from './images/blue.png';
 
 const BIRD = 'w';
 const PIG = 'b';
@@ -11,8 +18,7 @@ const PIG = 'b';
 function Square(props) {
   const img = props.value === BIRD
     ? bird
-    : (props.value === PIG ? pig : blank);
-
+    : (props.value === PIG ? pig : props.background);
   return (
     <img src={img} alt='' className='square' onClick={props.onClick} />
   );
@@ -40,7 +46,7 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      squares: Array(9).fill(null),
+      squares: Array(36).fill(null),
       birdIsNext: true,
     }
   }
@@ -53,10 +59,31 @@ class Board extends React.Component {
     }
   }
 
+  colors = [
+    'p', 'p', 'y', 'o', 'p', 'p',
+    'p', 'y', 'g', 'b', 'o', 'p',
+    'y', 'g', 'g', 'b', 'b', 'o',
+    'o', 'b', 'b', 'g', 'g', 'y',
+    'p', 'o', 'b', 'g', 'y', 'p',
+    'p', 'p', 'o', 'y', 'p', 'p',
+  ];
+
+  mapToColor = (colorChar) => {
+    switch(colorChar) {
+      case 'p': return pink;
+      case 'y': return yellow;
+      case 'o': return orange;
+      case 'g': return green;
+      case 'b': return blue;
+      default: return blank;
+    }
+  }
+
   renderSquare(i) {
     return (
       <Square
         value={this.state.squares[i]}
+        background={this.mapToColor(this.colors[i])}
         onClick={() => { this.handleClick(i) }}
       />
     );
@@ -72,8 +99,6 @@ class Board extends React.Component {
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
-        </div>
-        <div className='board-row'>
           {this.renderSquare(3)}
           {this.renderSquare(4)}
           {this.renderSquare(5)}
@@ -82,6 +107,41 @@ class Board extends React.Component {
           {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
+          {this.renderSquare(9)}
+          {this.renderSquare(10)}
+          {this.renderSquare(11)}
+        </div>
+        <div className='board-row'>
+          {this.renderSquare(12)}
+          {this.renderSquare(13)}
+          {this.renderSquare(14)}
+          {this.renderSquare(15)}
+          {this.renderSquare(16)}
+          {this.renderSquare(17)}
+        </div>
+        <div className='board-row'>
+          {this.renderSquare(18)}
+          {this.renderSquare(19)}
+          {this.renderSquare(20)}
+          {this.renderSquare(21)}
+          {this.renderSquare(22)}
+          {this.renderSquare(23)}
+        </div>
+        <div className='board-row'>
+          {this.renderSquare(24)}
+          {this.renderSquare(25)}
+          {this.renderSquare(26)}
+          {this.renderSquare(27)}
+          {this.renderSquare(28)}
+          {this.renderSquare(29)}
+        </div>
+        <div className='board-row'>
+          {this.renderSquare(30)}
+          {this.renderSquare(31)}
+          {this.renderSquare(32)}
+          {this.renderSquare(33)}
+          {this.renderSquare(34)}
+          {this.renderSquare(35)}
         </div>
       </div>
     );
@@ -104,23 +164,94 @@ class Game extends React.Component {
   }
 }
 
+
 function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
+  const winningColors = [
+    [0, 1, 6], // p
+    [2, 7, 12], // y
+    [8, 13, 14], //g
+    [3, 10, 17], // o
+    [4, 5, 11], //p
+    [9, 15, 16], //b
+    [18, 25, 32], //o
+    [19, 20, 26], //b
+    [24, 30, 31], //p
+    [21, 22, 27], //g
+    [28, 33, 38], //y
+    [29, 34, 35], //p
   ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
+
+  const winning4 = [    
+    [0, 1, 6, 7],
+    [1, 2, 8, 9],
+    [2, 3, 9, 10],
+    [3, 4, 9, 10],
+    [4, 5, 10, 11],
+
+    [6, 7, 12, 13],
+    [7, 8, 13, 14],
+    [8, 9, 14, 15],
+    [9, 10, 15, 16],
+    [10, 11, 16, 17],
+    
+    [12, 13, 18, 19],
+    [13, 14, 19, 20],
+    [14, 15, 20, 21],
+    [15, 16, 21, 22],
+    [16, 17, 22, 23],
+
+    [18, 19, 24, 25],
+    [19, 20, 25, 26],
+    [20, 21, 26, 27],
+    [21, 22, 27, 28],
+    [22, 23, 28, 29],
+
+    [24, 25, 30, 31],
+    [25, 26, 31, 32],
+    [26, 27, 32, 33],
+    [27, 28, 33, 34],
+    [28, 29, 34, 35],
+  ];
+
+  const winning5 = [
+    [0, 1, 2, 3, 4],
+    [1, 2, 3, 4, 5],
+    [6, 7, 8, 9, 10],
+    [7, 8, 9, 10, 11],
+    [12, 13, 14, 15, 16],
+    [13, 14, 15, 16, 17],
+    [18, 19, 20, 21, 22],
+    [19, 20, 21, 22, 23],
+    [24, 25, 26, 27, 28],
+    [25, 26, 27, 28, 29],
+    [30, 31, 32, 33, 34],
+    [31, 32, 33, 34, 35],
+
+  ];
+
+  for (let i = 0; i < winningColors.length; i++) {
+    const [a, b, c] = winningColors[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
   }
+
+  for (let i = 0; i < winning4.length; i++) {
+    const [a, b, c, d] = winning4[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c] 
+      && squares[a] === squares[d]) {
+      return squares[a];
+    }
+  }
+
+  for (let i = 0; i < winning5.length; i++) {
+    const [a, b, c, d, e] = winning5[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c] 
+      && squares[a] === squares[d] && squares[a] === squares[e]) {
+      return squares[a];
+    }
+  }
+
   return null;
 }
 // ========================================
