@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import pig from './images/Fat_pig.webp';
+import bird from './images/red.webp'
 
 function Square(props) {
   return (
-    <button className="square" onClick={props.onClick}>
+      // style=`background: url('')
+    <button className="square" onClick={props.onClick}> 
       {props.value}
     </button>
   );
@@ -60,6 +63,7 @@ class Board extends React.Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
+        <img className="square" src={this.state.xIsNext ? pig : bird } alt=''/>
       </div>
     );
   }
