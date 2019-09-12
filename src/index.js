@@ -5,16 +5,34 @@ import pig from './images/Fat_pig.webp';
 import bird from './images/red.webp';
 import blank from './images/blank.png';
 
-const WHITE = 'w';
-const BLACK = 'b';
+const BIRD = 'w';
+const PIG = 'b';
 
 function Square(props) {
-  const img = props.value === WHITE
+  const img = props.value === BIRD
     ? bird
-    : (props.value === BLACK ? pig : blank);
+    : (props.value === PIG ? pig : blank);
 
   return (
-    <img src={img} alt='' className="square" onClick={props.onClick} />
+    <img src={img} alt='' className='square' onClick={props.onClick} />
+  );
+}
+
+function Status(props) {
+  const nextPlayerImg = props.next === PIG ? pig : bird;
+  const statusImg = props.winner 
+  ? (props.winner === PIG 
+    ? pig 
+    : bird)
+  : nextPlayerImg;
+
+  const statusText = props.winner ? 'Winner: ' : 'Next player: ';
+
+  return (
+    <div className='status'>
+      {statusText}
+      <img className='icon' src={statusImg} alt='' />
+    </div>
   );
 }
 
@@ -23,15 +41,15 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
-      xIsNext: true,
+      birdIsNext: true,
     }
   }
 
   handleClick = (i) => {
     const squares = this.state.squares.slice();
     if (!squares[i] && !calculateWinner(this.state.squares)) {
-      squares[i] = this.state.xIsNext ? WHITE : BLACK;
-      this.setState({ squares: squares, xIsNext: !this.state.xIsNext });
+      squares[i] = this.state.birdIsNext ? BIRD : PIG;
+      this.setState({ squares: squares, birdIsNext: !this.state.birdIsNext });
     }
   }
 
@@ -46,24 +64,21 @@ class Board extends React.Component {
 
   render() {
     const winner = calculateWinner(this.state.squares);
-    const status = winner
-      ? `Winner: ${winner}`
-      : `Next player: ${this.state.xIsNext ? WHITE : BLACK}`;
 
     return (
       <div>
-        <div className="status">{status}</div>
-        <div className="board-row">
+        <Status winner={winner} next={this.state.birdIsNext ? BIRD : PIG}/>
+        <div className='board-row'>
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
         </div>
-        <div className="board-row">
+        <div className='board-row'>
           {this.renderSquare(3)}
           {this.renderSquare(4)}
           {this.renderSquare(5)}
         </div>
-        <div className="board-row">
+        <div className='board-row'>
           {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
@@ -76,11 +91,11 @@ class Board extends React.Component {
 class Game extends React.Component {
   render() {
     return (
-      <div className="game">
-        <div className="game-board">
+      <div className='game'>
+        <div className='game-board'>
           <Board />
         </div>
-        <div className="game-info">
+        <div className='game-info'>
           <div>{/* status */}</div>
           <ol>{/* TODO */}</ol>
         </div>
