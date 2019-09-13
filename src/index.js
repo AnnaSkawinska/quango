@@ -4,13 +4,6 @@ import './index.css';
 
 import pig from './images/Fat_pig.webp';
 import bird from './images/red.webp';
-import blank from './images/blank.png';
-
-import yellow from './images/yellow.png';
-import pink from './images/pink.png';
-import orange from './images/orange.png';
-import green from './images/green.png';
-import blue from './images/blue.png';
 
 const BIRD = 'w';
 const PIG = 'b';
@@ -18,9 +11,15 @@ const PIG = 'b';
 function Square(props) {
   const img = props.value === BIRD
     ? bird
-    : (props.value === PIG ? pig : props.background);
+    : (props.value === PIG ? pig : undefined);
+
+  const backgroundStyle = {
+    background: props.background
+  }
   return (
-    <img src={img} alt='' className='square' onClick={props.onClick} />
+    <button style={backgroundStyle} className='square' >
+      <img src={img} className='pawn' alt='' onClick={props.onClick}/>
+    </button>
   );
 }
 
@@ -70,16 +69,18 @@ class Board extends React.Component {
 
   mapToColor = (colorChar) => {
     switch(colorChar) {
-      case 'p': return pink;
-      case 'y': return yellow;
-      case 'o': return orange;
-      case 'g': return green;
-      case 'b': return blue;
-      default: return blank;
+      case 'p': return '#ff9bff';
+      case 'y': return '#ffff80';
+      case 'o': return '#ffb469';
+      case 'g': return '#80ff80';
+      case 'b': return '#9bffff';
+      default: return '#fff';
     }
   }
 
   renderSquare(i) {
+    console.log('value: ', this.state.squares[i]);
+    console.log('bg', this.mapToColor(this.colors[i]));
     return (
       <Square
         value={this.state.squares[i]}
@@ -226,7 +227,18 @@ function calculateWinner(squares) {
     [25, 26, 27, 28, 29],
     [30, 31, 32, 33, 34],
     [31, 32, 33, 34, 35],
-
+    [0, 6, 12, 18, 24],
+    [6, 12, 18, 24, 30],
+    [1, 7, 13, 19, 25],
+    [7, 13, 19, 25, 31],
+    [2, 8, 14, 20, 26],
+    [8, 14, 20, 26, 32],
+    [3, 9, 15, 21, 27],
+    [9, 15, 21, 27, 33],
+    [4, 10, 16, 22, 28],
+    [10, 16, 22, 28, 34],
+    [5, 11, 17, 23, 29],
+    [11, 17, 23, 29, 35],
   ];
 
   for (let i = 0; i < winningColors.length; i++) {
