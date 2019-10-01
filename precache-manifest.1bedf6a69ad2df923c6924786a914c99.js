@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7d5b54249aadc28bef06805ee72c7f5b",
+    "revision": "bf6652b335d93776920a5a053c6e954b",
     "url": "/quango/index.html"
   },
   {
