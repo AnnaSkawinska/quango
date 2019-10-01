@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/quango/static/css/main.18737572.chunk.css",
+    "main.js": "/quango/static/js/main.96680ea3.chunk.js",
+    "main.js.map": "/quango/static/js/main.96680ea3.chunk.js.map",
+    "runtime~main.js": "/quango/static/js/runtime~main.3cfa9d0f.js",
+    "runtime~main.js.map": "/quango/static/js/runtime~main.3cfa9d0f.js.map",
+    "static/js/2.e01b3d86.chunk.js": "/quango/static/js/2.e01b3d86.chunk.js",
+    "static/js/2.e01b3d86.chunk.js.map": "/quango/static/js/2.e01b3d86.chunk.js.map",
+    "index.html": "/quango/index.html",
+    "precache-manifest.c0e0bedb491d0b1d9fd5bb90f8b9e5d7.js": "/quango/precache-manifest.c0e0bedb491d0b1d9fd5bb90f8b9e5d7.js",
+    "service-worker.js": "/quango/service-worker.js",
+    "static/css/main.18737572.chunk.css.map": "/quango/static/css/main.18737572.chunk.css.map",
+    "static/media/Fat_pig.webp": "/quango/static/media/Fat_pig.6228bdf3.webp",
+    "static/media/pichu.webp": "/quango/static/media/pichu.535835c0.webp",
+    "static/media/pikachu.png": "/quango/static/media/pikachu.0def0ed7.png",
+    "static/media/red.webp": "/quango/static/media/red.0f8127d0.webp"
+  }
+}
