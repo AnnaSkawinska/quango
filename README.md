@@ -1,4 +1,4 @@
-#Quango
+# Quango
 
 Quango is a two-player game created by [Klaus Burmester](https://boardgamegeek.com/boardgame/200632/qango).
 
@@ -9,6 +9,11 @@ https://reactjs.org/tutorial/tutorial.html).
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
+## Deployed app
+
+You can find the app on [GitHub Pages](https://annaskawinska.github.io/quango/).
 
 ## Available Scripts
 
