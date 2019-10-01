@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/quango/precache-manifest.c0e0bedb491d0b1d9fd5bb90f8b9e5d7.js"
+  "/quango/precache-manifest.027b6e1e320f8cc2a9bb628edd6f75b4.js"
 );
 
 self.addEventListener('message', (event) => {
