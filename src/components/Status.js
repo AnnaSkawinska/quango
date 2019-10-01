@@ -1,13 +1,15 @@
 import React from 'react';
 import { SECOND } from './Square';
-import { first, second } from './Avatar';
 
 export const Status = (props) => {
-    const nextPlayerImg = props.next === SECOND ? first : second;
+
+    console.log('Status render');
+
+    const nextPlayerImg = props.next === SECOND ? props.avatars[0] : props.avatars[1];
     const statusImg = props.winner
         ? (props.winner === SECOND
-            ? first
-            : second)
+            ? props.avatars[0]
+            : props.avatars[1])
         : nextPlayerImg;
 
     const statusText = props.winner ? 'Winner: ' : 'Next player: ';

@@ -1,14 +1,12 @@
 import React from 'react';
 
-import { first, second } from './Avatar';
-
 export const FIRST = 'w';
 export const SECOND = 'b';
 
 export const Square = (props) => {
     const img = props.value === FIRST
-        ? second
-        : (props.value === SECOND ? first : undefined);
+        ? props.avatars[1]
+        : (props.value === SECOND ? props.avatars[0] : undefined);
 
     const backgroundStyle = {
         background: props.background
